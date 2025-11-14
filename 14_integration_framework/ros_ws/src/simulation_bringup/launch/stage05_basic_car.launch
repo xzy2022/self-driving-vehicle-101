@@ -5,12 +5,9 @@
   <arg name="spawn_z" default="0.2" />
   <arg name="robot_name" default="smart_basic" />
 
-  <arg name="simulation_bringup_dir" default="$(find simulation_bringup)" />
-  <arg name="repo_root" default="$(eval str(__import__('pathlib').Path(arg('simulation_bringup_dir')).resolve().parents[3]))" />
-
   <arg name="world_file" default="$(find gazebo_ros)/worlds/empty.world" />
-  <arg name="car_spawn_launch" default="$(arg repo_root)/13_path_following_part_3_pure_persuit/car_model/launch/spawn_xacro.launch" />
-  <arg name="urdf_file" default="$(arg repo_root)/05_basic_car/urdf/smart.xacro" />
+  <arg name="car_spawn_launch" default="$(find simulation_bringup)/launch/spawn_xacro.launch" />
+  <arg name="urdf_file" default="$(find simulation_bringup)/models/stage05_basic_car/urdf/smart_basic.xacro" />
 
   <arg name="gazebo_gui" default="$(eval 'false' if arg('session_mode') == 'test' else 'true')" />
   <arg name="gazebo_paused" default="$(eval 'true' if arg('session_mode') == 'test' else 'false')" />

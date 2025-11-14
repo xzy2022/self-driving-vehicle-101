@@ -5,12 +5,9 @@
   <arg name="spawn_z" default="0.5" />
   <arg name="robot_name" default="integration_box" />
 
-  <arg name="simulation_bringup_dir" default="$(find simulation_bringup)" />
-  <arg name="repo_root" default="$(env SELF_DRIVING_REPO_ROOT)"/>
-
   <arg name="world_file" default="$(find gazebo_ros)/worlds/empty.world" />
-  <arg name="spawn_launch" default="$(arg repo_root)/04_intro_to_urdf/launch/spawn_box_xacro.launch" />
-  <arg name="urdf_file" default="$(arg repo_root)/04_intro_to_urdf/urdf/box.xacro" />
+  <arg name="spawn_launch" default="$(find simulation_bringup)/launch/spawn_xacro.launch" />
+  <arg name="urdf_file" default="$(find simulation_bringup)/models/stage04_box/urdf/box.xacro" />
 
   <arg name="gazebo_gui" default="$(eval 'false' if arg('session_mode') == 'test' else 'true')" />
   <arg name="gazebo_paused" default="$(eval 'true' if arg('session_mode') == 'test' else 'false')" />
