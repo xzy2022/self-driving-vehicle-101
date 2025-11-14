@@ -1,0 +1,7 @@
+<launch>
+  <arg name="config_file" default="$(find algorithm_manager)/config/controllers.yaml" />
+  <node pkg="algorithm_manager" type="algorithm_switcher.py" name="algorithm_switcher" output="screen">
+    <param name="config_file" value="$(arg config_file)" />
+    <param name="active_controller" value="$(optenv DEFAULT_CONTROLLER pure_pursuit_base)" />
+  </node>
+</launch>

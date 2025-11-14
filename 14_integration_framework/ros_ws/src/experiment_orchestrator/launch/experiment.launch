@@ -1,0 +1,10 @@
+<launch>
+  <arg name="experiment_id" default="pure_pursuit_baseline" />
+  <arg name="config_file" default="$(find experiment_orchestrator)/config/experiments.yaml" />
+
+  <!-- 依赖 simulation_bringup + algorithm_manager 已经由上层组合启动 -->
+  <node pkg="experiment_orchestrator" type="experiment_orchestrator.py" name="experiment_orchestrator" output="screen">
+    <param name="experiment_id" value="$(arg experiment_id)" />
+    <param name="config_file" value="$(arg config_file)" />
+  </node>
+</launch>

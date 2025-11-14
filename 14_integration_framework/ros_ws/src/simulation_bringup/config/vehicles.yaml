@@ -1,0 +1,27 @@
+vehicles:
+  proto_v1:
+    description: "早期纯追踪实验车，沿用 09~13 的 smart.xacro"
+    spawn_launch: "${REPO_ROOT}/08_control_direction_and_speed/launch/control.launch"
+    controllers: ["pid_default"]
+    sensors:
+      - name: gazebo_pose
+        topic: "/gazebo/model_states"
+      - name: rear_pose
+        topic: "/smart/rear_pose"
+  proto_v2:
+    description: "加入 RViz 可视化与扩展传感器的版本"
+    spawn_launch: "${REPO_ROOT}/10_show_car_in_rviz/launch/control.launch"
+    controllers: ["pid_default", "steering_gpu"]
+    sensors:
+      - name: rviz_tf
+        topic: "/tf"
+      - name: velocity
+        topic: "/smart/velocity"
+
+stages:
+  - id: bringup_only
+    includes: ["proto_v1"]
+    notes: "无路径跟踪算法，仅验证车辆能否在 Gazebo 中运行"
+  - id: localization_closed_loop
+    includes: ["proto_v2"]
+    notes: "包含车辆 + 状态估计 + RViz，可直接对接控制算法"

@@ -1,0 +1,24 @@
+experiments:
+  pure_pursuit_baseline:
+    description: "复现当前仓库的 Pure Pursuit 流程"
+    vehicle_id: "proto_v1"
+    world_id: "oval_track"
+    controller_id: "pure_pursuit_base"
+    parameters:
+      horizon: 6.0
+      lookahead_wps: 40
+    waypoints: "${REPO_ROOT}/13_path_following_part_3_pure_persuit/waypoint_loader/waypoints/waypoints.csv"
+    log_dir: "logs/pure_pursuit_baseline"
+  stanley_debug:
+    description: "为下一阶段的 Stanley 控制做占位测试"
+    vehicle_id: "proto_v2"
+    world_id: "downtown_mock"
+    controller_id: "stanley_placeholder"
+    parameters:
+      gain: 1.0
+      softening: 0.15
+      max_steer: 0.4
+    waypoints: "${REPO_ROOT}/resources/paths/downtown_loop.csv"
+    log_dir: "logs/stanley_debug"
+
+log_root: "${REPO_ROOT}/14_integration_framework/logs"

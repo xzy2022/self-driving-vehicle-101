@@ -1,0 +1,21 @@
+worlds:
+  empty_world:
+    description: "默认 Gazebo 空白地形"
+    world_file: "$(find gazebo_ros)/worlds/empty.world"
+    plugins: []
+  oval_track:
+    description: "椭圆跑道，适合纯追踪/Stanley 对比"
+    world_file: "${REPO_ROOT}/resources/worlds/oval_track.world"
+    plugins:
+      - name: speed_limiter
+        type: "libgazebo_ros_speed.so"
+  downtown_mock:
+    description: "示例城市道路，待根据项目扩充"
+    world_file: "${REPO_ROOT}/resources/worlds/downtown.world"
+    plugins:
+      - name: traffic_spawner
+        type: "libgazebo_ros_factory.so"
+
+transforms:
+  base_link: "smart/base_link"
+  imu: "smart/imu_link"

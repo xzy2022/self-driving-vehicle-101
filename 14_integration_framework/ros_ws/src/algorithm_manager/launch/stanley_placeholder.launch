@@ -1,0 +1,4 @@
+<launch>
+  <!-- TODO: 指向未来的 Stanley 控制器包 -->
+  <rosparam param="stanley/default_gain">1.0</rosparam>
+</launch>

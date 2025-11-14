@@ -1,0 +1,15 @@
+<launch>
+  <arg name="vehicle_id" default="proto_v1" />
+  <arg name="world_id" default="empty_world" />
+  <arg name="vehicles_file" default="$(find simulation_bringup)/config/vehicles.yaml" />
+  <arg name="environments_file" default="$(find simulation_bringup)/config/environments.yaml" />
+
+  <node pkg="simulation_bringup" type="environment_loader.py" name="environment_loader" output="screen">
+    <param name="vehicle_id" value="$(arg vehicle_id)" />
+    <param name="world_id" value="$(arg world_id)" />
+    <param name="vehicles_file" value="$(arg vehicles_file)" />
+    <param name="environments_file" value="$(arg environments_file)" />
+  </node>
+
+  <!-- TODO: 在此 include Gazebo、RViz、car_model 及 waypoint 套件 -->
+</launch>
