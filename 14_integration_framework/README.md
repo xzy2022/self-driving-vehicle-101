@@ -20,6 +20,7 @@ ros_ws/
 
 - 可以通过 `cd 14_integration_framework/ros_ws && catkin_make` 生成 `devel` 与 `build` 目录。
 - 如需复用旧实验，可将 `11~13` 中的包复制到 `ros_ws/src`，或通过 `environments.yaml`/`experiments.yaml` 直接指向原目录。
+- `tests/` 目录提供了面向 `04~06` 阶段的快捷验证脚本（headless test mode），运行前请先 `source` 工作区。
 
 ## 下一步建议
 1. 在 `simulation_bringup/launch` 中补全实际 `<include>`，引用仓库现有包以验证车辆与状态反馈链路。

@@ -1,4 +1,28 @@
 vehicles:
+  stage04_box_demo:
+    description: "04_intro_to_urdf 中的 box.xacro，适合验证 URDF 基础配置"
+    spawn_launch: "$(find simulation_bringup)/launch/stage04_box_demo.launch"
+    long_term_args:
+      session_mode: "runtime"
+    test_args:
+      session_mode: "test"
+    notes: "long-term 模式打开 Gazebo GUI；test 模式使用 pause+headless"
+  stage05_basic_car:
+    description: "05_basic_car 中的 smart.xacro，展示基础四轮几何"
+    spawn_launch: "$(find simulation_bringup)/launch/stage05_basic_car.launch"
+    long_term_args:
+      session_mode: "runtime"
+    test_args:
+      session_mode: "test"
+    notes: "复用 13_path 路径中的 spawn_xacro，适配 Ackermann 车体"
+  stage06_3d_car:
+    description: "06_3d_car_model 中的 mesh 增强版"
+    spawn_launch: "$(find simulation_bringup)/launch/stage06_3d_car.launch"
+    long_term_args:
+      session_mode: "runtime"
+    test_args:
+      session_mode: "test"
+    notes: "面向长期仿真；test 模式用于快速检查 mesh 载入"
   proto_v1:
     description: "早期纯追踪实验车，沿用 09~13 的 smart.xacro"
     spawn_launch: "${REPO_ROOT}/08_control_direction_and_speed/launch/control.launch"
@@ -19,6 +43,15 @@ vehicles:
         topic: "/smart/velocity"
 
 stages:
+  - id: urdf_bootstrap
+    includes: ["stage04_box_demo"]
+    notes: "Box 模型上线；验证 URDF 解析链路"
+  - id: basic_car_geometry
+    includes: ["stage05_basic_car"]
+    notes: "基础车体（无 mesh）准备完成"
+  - id: car_visual_upgrade
+    includes: ["stage06_3d_car"]
+    notes: "3D mesh 加持，可用于展示/教学"
   - id: bringup_only
     includes: ["proto_v1"]
     notes: "无路径跟踪算法，仅验证车辆能否在 Gazebo 中运行"

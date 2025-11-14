@@ -1,0 +1,35 @@
+<launch>
+  <arg name="session_mode" default="runtime" doc="runtime for long runs, test for quick validation" />
+  <arg name="spawn_x" default="0.0" />
+  <arg name="spawn_y" default="0.0" />
+  <arg name="spawn_z" default="0.5" />
+  <arg name="robot_name" default="integration_box" />
+
+  <arg name="simulation_bringup_dir" default="$(find simulation_bringup)" />
+  <arg name="repo_root" default="$(env SELF_DRIVING_REPO_ROOT)"/>
+
+  <arg name="world_file" default="$(find gazebo_ros)/worlds/empty.world" />
+  <arg name="spawn_launch" default="$(arg repo_root)/04_intro_to_urdf/launch/spawn_box_xacro.launch" />
+  <arg name="urdf_file" default="$(arg repo_root)/04_intro_to_urdf/urdf/box.xacro" />
+
+  <arg name="gazebo_gui" default="$(eval 'false' if arg('session_mode') == 'test' else 'true')" />
+  <arg name="gazebo_paused" default="$(eval 'true' if arg('session_mode') == 'test' else 'false')" />
+
+  <include file="$(find gazebo_ros)/launch/empty_world.launch">
+    <arg name="world_name" value="$(arg world_file)" />
+    <arg name="paused" value="$(arg gazebo_paused)" />
+    <arg name="gui" value="$(arg gazebo_gui)" />
+  </include>
+
+  <group ns="stage04_box">
+    <param name="session_mode" value="$(arg session_mode)" />
+    <param name="/simulation_bringup/stage04_box/session_mode" value="$(arg session_mode)" />
+    <include file="$(arg spawn_launch)">
+      <arg name="x" value="$(arg spawn_x)" />
+      <arg name="y" value="$(arg spawn_y)" />
+      <arg name="z" value="$(arg spawn_z)" />
+      <arg name="robot_name" value="$(arg robot_name)" />
+      <arg name="urdf_robot_file" value="$(arg urdf_file)" />
+    </include>
+  </group>
+</launch>

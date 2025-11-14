@@ -1,18 +1,18 @@
 # Catkin build artifacts
-ros_ws/build/
-ros_ws/devel/
-ros_ws/install/
-ros_ws/log/
-ros_ws/.catkin_tools/
-ros_ws/.rosinstall
-ros_ws/src/CMakeLists.txt
+**/ros_ws/build/
+**/ros_ws/devel/
+**/ros_ws/install/
+**/ros_ws/log/
+**/ros_ws/.catkin_tools/
+**/ros_ws/.rosinstall
+**/ros_ws/src/CMakeLists.txt
 
 # Generated or temporary files
 **/*.swp
 **/*.swo
 *.pyc
 __pycache__/
-ros_ws/.ros
+**/ros_ws/.ros
 *.log
 *.bag
 *.bag.active
