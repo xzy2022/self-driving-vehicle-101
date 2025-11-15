@@ -1,0 +1,41 @@
+<launch>
+  <arg name="session_mode" default="runtime" />
+  <arg name="spawn_x" default="0.0" />
+  <arg name="spawn_y" default="0.0" />
+  <arg name="spawn_z" default="0.2" />
+  <arg name="robot_name" default="smart" />
+  <arg name="config_file" default="$(find simulation_bringup)/config/smart_control_config.yaml" />
+  <arg name="world_file" default="$(find gazebo_ros)/worlds/empty.world" />
+  <arg name="urdf_file" default="$(find simulation_bringup)/models/stage07_controlled_car/urdf/smart_controlled.xacro" />
+
+  <arg name="gazebo_gui" default="$(eval 'false' if arg('session_mode') == 'test' else 'true')" />
+  <arg name="gazebo_paused" default="$(eval 'true' if arg('session_mode') == 'test' else 'false')" />
+
+  <include file="$(find gazebo_ros)/launch/empty_world.launch">
+    <arg name="world_name" value="$(arg world_file)" />
+    <arg name="paused" value="$(arg gazebo_paused)" />
+    <arg name="gui" value="$(arg gazebo_gui)" />
+  </include>
+
+  <group ns="stage07_controlled_car">
+    <param name="session_mode" value="$(arg session_mode)" />
+    <include file="$(find simulation_bringup)/launch/spawn_xacro.launch">
+      <arg name="x" value="$(arg spawn_x)" />
+      <arg name="y" value="$(arg spawn_y)" />
+      <arg name="z" value="$(arg spawn_z)" />
+      <arg name="robot_name" value="$(arg robot_name)" />
+      <arg name="urdf_robot_file" value="$(arg urdf_file)" />
+    </include>
+
+    <rosparam command="load" ns="/$(arg robot_name)" file="$(arg config_file)" />
+
+    <node name="controller_spawner" pkg="controller_manager" type="spawner" respawn="false"
+          output="screen" ns="/$(arg robot_name)"
+          args="joint_state_controller rear_right_velocity_controller rear_left_velocity_controller front_right_steering_position_controller front_left_steering_position_controller" />
+
+    <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher"
+          respawn="true" output="screen">
+      <remap from="/joint_states" to="/$(arg robot_name)/joint_states" />
+    </node>
+  </group>
+</launch>

@@ -10,6 +10,7 @@ catkin_package()
 
 catkin_install_python(PROGRAMS
   scripts/environment_loader.py
+  scripts/cmdvel2gazebo.py
   DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
 )
 
